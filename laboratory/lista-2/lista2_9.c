@@ -11,7 +11,7 @@ void MostrarHorario(struct Horario *ptr)
     printf("%02d:%02d\n", ptr->h, ptr->min);
 }
 
-// Função para normalizar o horário: converte minutos extras em horas
+// Funcao para normalizar o horario: converte minutos extras em horas
 void NormalizarHorario(struct Horario *ptr)
 {
     if (ptr->min >= 60)
@@ -32,7 +32,7 @@ int main()
     struct Horario h1, *px;
     px = &h1;
 
-    printf("Informe o horário atual [hh:mm]\n");
+    printf("Informe o horï¿½rio atual [hh:mm]\n");
     scanf("%d %d", &px->h, &px->min);
 
     px->h++;

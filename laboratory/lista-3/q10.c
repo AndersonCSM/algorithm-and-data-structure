@@ -13,7 +13,7 @@ ASCII *criarElementoASCII(int val, char ch)
     ASCII *novoElemento = (ASCII *)malloc(sizeof(ASCII));
     if (novoElemento == NULL)
     {
-        printf("Erro ao alocar memória na função!\n");
+        printf("Erro ao alocar memoria na funcao!\n");
         return NULL;
     }
     novoElemento->valor = val;
@@ -44,7 +44,7 @@ int main()
         printf("Caractere: %c\n", ptr->caractere);
         printf("Valor: %d\n", ptr->valor);
 
-        // Deleta a memória que foi alocada dentro da função
+        // Deleta a memoria que foi alocada dentro da funcao
         free(ptr);
     }
     else

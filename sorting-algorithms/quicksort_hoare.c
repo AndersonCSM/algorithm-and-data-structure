@@ -1,34 +1,34 @@
 // implementar o algoritmo de ordenacao quicksort
 #include <stdio.h>
 
-// Função para trocar dois elementos
+// Funcao para trocar dois elementos
 void troca(int* a, int* b) {
     int temp = *a;
     *a = *b;
     *b = temp;
 }
 
-// Função de partição (esquema de Hoare)
-// Retorna o índice 'j' final (limite da partição esquerda)
-// O índice 'i' final (início da partição direita) é retornado via ponteiro 'i_ptr'
+// Funcao de particao (esquema de Hoare)
+// Retorna o indice 'j' final (limite da particao esquerda)
+// O indice 'i' final (inicio da particao direita) e retornado via ponteiro 'i_ptr'
 int partition_hoare(int arr[], int first, int last, int* i_ptr, int pivot_mode) {
     int i = first;
-    int j = last - 1; // 'last' é exclusivo, então 'last-1' é o último índice real
+    int j = last - 1; // 'last' e exclusivo, entao 'last-1' e o ultimo indice real
     int pivot_val;
 
-    // Se o subarray tem 0 ou 1 elemento, não há o que particionar.
-    // Esta verificação é mais para robustez, pois quickSort_hoare já deve filtrar.
+    // Se o subarray tem 0 ou 1 elemento, nao ha o que particionar.
+    // Esta verificacao e mais para robustez, pois quickSort_hoare ja deve filtrar.
     if (first >= last -1) { // Equivale a last - first < 2
         *i_ptr = first; // ou i
         return last - 1; // ou j
     }
 
     int pivot_idx_choice;
-    if (pivot_mode == 1) { // Pivô é o primeiro elemento
+    if (pivot_mode == 1) { // Pivo e o primeiro elemento
         pivot_idx_choice = first;
-    } else if (pivot_mode == 2) { // Pivô é o último elemento
-        pivot_idx_choice = j; // Usa j (que é last - 1)
-    } else if (pivot_mode == 3) { // Pivô é o elemento do meio
+    } else if (pivot_mode == 2) { // Pivo e o ultimo elemento
+        pivot_idx_choice = j; // Usa j (que e last - 1)
+    } else if (pivot_mode == 3) { // Pivo e o elemento do meio
         pivot_idx_choice = first + (j - first) / 2;
     } else {
         printf("Estrategia de pivo '%d' invalida. Usando 3 (meio).\n", pivot_mode);
@@ -39,51 +39,51 @@ int partition_hoare(int arr[], int first, int last, int* i_ptr, int pivot_mode) 
     // Particionamento
     while (i <= j) {
         // Move i para a direita enquanto arr[i] < pivot_val.
-        // i pode ir até 'last-1'. Se arr[last-1] < pivot_val, i se tornará 'last'.
+        // i pode ir atï¿½ 'last-1'. Se arr[last-1] < pivot_val, i se tornarï¿½ 'last'.
         while (i < last && arr[i] < pivot_val) {
             i++;
         }
 
         // Move j para a esquerda enquanto arr[j] > pivot_val.
-        // j pode ir até 'first'. Se arr[first] > pivot_val, j se tornará 'first-1'.
+        // j pode ir atï¿½ 'first'. Se arr[first] > pivot_val, j se tornarï¿½ 'first-1'.
         while (j >= first && arr[j] > pivot_val) {
             j--;
         }
 
-        // Se i e j não se cruzaram (ou i ultrapassou j)
+        // Se i e j nao se cruzaram (ou i ultrapassou j)
         if (i <= j) {
             troca(&arr[i], &arr[j]);
             i++;
             j--;
         }
     }
-    // Após o loop, j < i.
-    // j é o índice final da partição esquerda.
-    // i é o índice inicial da partição direita.
+    // Apos o loop, j < i.
+    // j e o indice final da particao esquerda.
+    // i e o indice inicial da particao direita.
     *i_ptr = i;
     return j;
 }
 
-// Função principal do QuickSort (usando partição de Hoare)
+// Funcao principal do QuickSort (usando particao de Hoare)
 void quickSort_hoare(int arr[], int first, int last, int pivot_mode) {
-    // Condição de parada: se o subarray tem 1 ou 0 elementos (last - first < 2).
+    // Condicao de parada: se o subarray tem 1 ou 0 elementos (last - first < 2).
     if (first < last - 1) {
-        int i_after_partition; // Início da partição direita
-        int j_after_partition; // Fim da partição esquerda
+        int i_after_partition; // Inicio da particao direita
+        int j_after_partition; // Fim da particao esquerda
 
         j_after_partition = partition_hoare(arr, first, last, &i_after_partition, pivot_mode);
 
-        // Ordena a partição esquerda: [first ... j_after_partition]
-        // O novo 'last' (exclusivo) é j_after_partition + 1
+        // Ordena a particao esquerda: [first ... j_after_partition]
+        // O novo 'last' (exclusivo) e j_after_partition + 1
         quickSort_hoare(arr, first, j_after_partition + 1, pivot_mode);
        
-        // Ordena a partição direita: [i_after_partition ... last-1]
-        // O 'first' é i_after_partition, 'last' permanece o mesmo (exclusivo)
+        // Ordena a particao direita: [i_after_partition ... last-1]
+        // O 'first' e i_after_partition, 'last' permanece o mesmo (exclusivo)
         quickSort_hoare(arr, i_after_partition, last, pivot_mode);
     }
 }
 
-// Função para imprimir um array
+// Funcao para imprimir um array
 void printArray(int arr[], int size) {
     for (int k = 0; k < size; k++) {
         printf("%d ", arr[k]);
@@ -91,9 +91,9 @@ void printArray(int arr[], int size) {
     printf("\n");
 }
 
-// Função principal para testar o algoritmo
+// Funcao principal para testar o algoritmo
 int main() {
-    int data_orig[] = {8, 7, 2, 1, 0, 9, 6, 3, 5, 4}; // Renomeado para evitar confusão
+    int data_orig[] = {8, 7, 2, 1, 0, 9, 6, 3, 5, 4}; // Renomeado para evitar confusao
     int n = sizeof(data_orig) / sizeof(data_orig[0]);
     int data_test[n]; // Array para cada teste
 
@@ -111,7 +111,7 @@ int main() {
         else if (mode == 2) printf("(ultimo elemento):\n");
         else if (mode == 3) printf("(elemento do meio):\n");
 
-        quickSort_hoare(data_test, 0, n, mode); // 'n' é o limite exclusivo 'last'
+        quickSort_hoare(data_test, 0, n, mode); // 'n' e o limite exclusivo 'last'
         printf("Array ordenado: ");
         printArray(data_test, n);
     }

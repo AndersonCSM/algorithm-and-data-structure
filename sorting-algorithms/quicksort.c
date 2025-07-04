@@ -1,23 +1,23 @@
-// implementar o algoritmo de ordenaÃ§Ã£o quicksort
+// implementar o algoritmo de ordenacao quicksort
 
 #include <stdio.h>
 
 void quickSort(int *vetor, int inicio, int fim) {
     int i, j, pivo, aux;
-    i = inicio; // i é o primeiro índice do vetor
-    j = fim - 1; // j é o último índice do vetor
-    pivo = vetor[(inicio + fim) / 2]; // pivô é o elemento do meio
+    i = inicio; // i e o primeiro indice do vetor
+    j = fim - 1; // j e o ultimo indice do vetor
+    pivo = vetor[(inicio + fim) / 2]; // pivo e o elemento do meio
 
-    while (i <= j) { // Enquanto i e j não se cruzarem
-        // busca o primeiro elemento menor que o pivô a partir de i
+    while (i <= j) { // Enquanto i e j nao se cruzarem
+        // busca o primeiro elemento menor que o pivo a partir de i
         while (vetor[i] < pivo && i < fim) {
             i++;
         }
-        // busca o primeiro elemento maior que o pivô a partir de j
+        // busca o primeiro elemento maior que o pivo a partir de j
         while (vetor[j] > pivo && j > inicio) {
             j--;
         }
-        if (i <= j) { // Enquanto i e j não se cruzarem
+        if (i <= j) { // Enquanto i e j nao se cruzarem
             // troca os elementos encontrados
             aux = vetor[i];
             vetor[i] = vetor[j];
@@ -28,7 +28,7 @@ void quickSort(int *vetor, int inicio, int fim) {
         }
     }
     // Chamada recursiva para ordenar as duas metades
-    // j está a esquerda de i.
+    // j esta a esquerda de i.
     if (j > inicio) {
         quickSort(vetor, inicio, j + 1);
     }

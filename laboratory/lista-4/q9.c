@@ -10,7 +10,7 @@ struct peixe
     float comp;
 };
 
-// CREATE: Adiciona um peixe ao final do arquivo binário.
+// CREATE: Adiciona um peixe ao final do arquivo binario.
 // Retorna 0 em sucesso, -1 em erro.
 int adicionar_peixe_arquivo(const char *filename, struct peixe p)
 {
@@ -33,7 +33,7 @@ int adicionar_peixe_arquivo(const char *filename, struct peixe p)
     return 0;
 }
 
-// READ: Lê e exibe todos os peixes do arquivo binário.
+// READ: Le e exibe todos os peixes do arquivo binario.
 // Retorna o número de peixes lidos, ou 0 se o arquivo não puder ser aberto.
 int exibir_todos_os_peixes_do_arquivo(const char *filename)
 {
@@ -71,7 +71,7 @@ int atualizar_peixe_no_arquivo(const char *filename, const char *nome_chave, str
     FILE *arq = fopen(filename, "rb+");
     if (arq == NULL)
     {
-        perror("Erro ao abrir o arquivo para atualização");
+        perror("Erro ao abrir o arquivo para atualizacao");
         fprintf(stderr, "Arquivo: %s\n", filename);
         return -1;
     }
@@ -85,7 +85,7 @@ int atualizar_peixe_no_arquivo(const char *filename, const char *nome_chave, str
             // Volta para o início do registro atual para sobrescrevê-lo
             if (fseek(arq, -(long)sizeof(struct peixe), SEEK_CUR) != 0)
             {
-                perror("Erro ao posicionar para atualização (fseek)");
+                perror("Erro ao posicionar para atualizacao (fseek)");
                 fclose(arq);
                 return -1;
             }
@@ -122,7 +122,7 @@ int excluir_peixe_do_arquivo(const char *filename, const char *nome_chave)
     FILE *arq_temp = fopen(temp_filename, "wb");
     if (arq_temp == NULL)
     {
-        perror("Erro ao criar arquivo temporário para exclusão");
+        perror("Erro ao criar arquivo temporario para exclusao");
         fprintf(stderr, "Arquivo: %s\n", temp_filename);
         fclose(arq_original);
         return -1;
@@ -140,10 +140,10 @@ int excluir_peixe_do_arquivo(const char *filename, const char *nome_chave)
         {
             if (fwrite(&p_temp, sizeof(struct peixe), 1, arq_temp) < 1)
             {
-                perror("Erro ao escrever no arquivo temporário");
+                perror("Erro ao escrever no arquivo temporario");
                 fclose(arq_original);
                 fclose(arq_temp);
-                remove(temp_filename); // Tenta remover o temporário
+                remove(temp_filename); // Tenta remover o temporario
                 return -1;
             }
         }
@@ -156,13 +156,13 @@ int excluir_peixe_do_arquivo(const char *filename, const char *nome_chave)
     {
         perror("Erro ao remover o arquivo original");
         fprintf(stderr, "Arquivo: %s\n", filename);
-        remove(temp_filename); // Tenta remover o temporário
+        remove(temp_filename); // Tenta remover o temporario
         return -1;
     }
 
     if (rename(temp_filename, filename) != 0)
     {
-        perror("Erro ao renomear o arquivo temporário");
+        perror("Erro ao renomear o arquivo temporario");
         fprintf(stderr, "Arquivo: %s para %s\n", temp_filename, filename);
         remove(temp_filename);
         return -1;

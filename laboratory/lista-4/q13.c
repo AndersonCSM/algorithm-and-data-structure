@@ -37,8 +37,8 @@ void armazenar_mensagem()
     printf("Cor do texto: ");
     if (scanf("%d", &msg.cor_texto) != 1)
     {
-        fprintf(stderr, "Cor do texto inválida. Deve ser entre 000 e 255.\n");
-        limpar_buffer(); // Limpa o buffer em caso de entrada inválida
+        fprintf(stderr, "Cor do texto invï¿½lida. Deve ser entre 000 e 255.\n");
+        limpar_buffer(); // Limpa o buffer em caso de entrada invï¿½lida
         return;
     }
     limpar_buffer(); // Limpa o '\n' deixado por scanf
@@ -46,13 +46,13 @@ void armazenar_mensagem()
     printf("Cor do fundo: ");
     if (scanf("%d", &msg.cor_fundo) != 1)
     {
-        fprintf(stderr, "Cor do fundo inválida. Deve ser entre 000 e 255.\n");
+        fprintf(stderr, "Cor do fundo invalida. Deve ser entre 000 e 255.\n");
         limpar_buffer();
         return;
     }
     limpar_buffer();
 
-    arquivo = fopen(NOME_ARQUIVO, "wb"); // Abre para escrita binária (sobrescreve)
+    arquivo = fopen(NOME_ARQUIVO, "wb"); // Abre para escrita binï¿½ria (sobrescreve)
     if (arquivo == NULL)
     {
         perror("Erro ao abrir o arquivo para armazenamento");
@@ -71,7 +71,7 @@ void armazenar_mensagem()
     fclose(arquivo);
 }
 
-// Função para exibir a mensagem do arquivo
+// Funcao para exibir a mensagem do arquivo
 void exibir_mensagem()
 {
     struct MensagemColorida msg;
@@ -81,13 +81,13 @@ void exibir_mensagem()
     if (arquivo == NULL)
     {
         printf("Nenhuma mensagem armazenada ainda.\n");
-        perror("Erro ao abrir o arquivo para exibição");
+        perror("Erro ao abrir o arquivo para exibiï¿½ï¿½o");
         return;
     }
 
     if (fread(&msg, sizeof(struct MensagemColorida), 1, arquivo) != 1)
     {
-        printf("Nenhuma mensagem válida encontrada no arquivo ou erro de leitura.\n");
+        printf("Nenhuma mensagem vï¿½lida encontrada no arquivo ou erro de leitura.\n");
     }
     else
     {
@@ -115,13 +115,13 @@ int main()
         printf("[E]xibir\n");
         printf("[S]air\n");
         printf("-----------------------\n");
-        printf("Opção: ");
+        printf("Opï¿½ï¿½o: ");
 
         if (scanf(" %c", &opc) != 1)
-        { // Espaço antes de %c para consumir newlines pendentes
-            fprintf(stderr, "Erro ao ler a opção.\n");
+        { // Espaï¿½o antes de %c para consumir newlines pendentes
+            fprintf(stderr, "Erro ao ler a opï¿½ï¿½o.\n");
             limpar_buffer();
-            opc = ' '; // Força a repetição do loop
+            opc = ' '; // Forï¿½a a repetiï¿½ï¿½o do loop
             continue;
         }
         limpar_buffer();
@@ -138,7 +138,7 @@ int main()
         case 'S':
             break;
         default:
-            printf("Opção inválida. Tente novamente.\n");
+            printf("Opï¿½ï¿½o invï¿½lida. Tente novamente.\n");
         }
     } while (opc != 'S');
 

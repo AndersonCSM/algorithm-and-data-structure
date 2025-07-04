@@ -5,7 +5,7 @@
 #include<locale.h>
 
 
-// --- Funções Utilitárias ---
+// --- Funcoes Utilitarias ---
 void printArrayInfo(const char* prefix, int arr[], int size) {
     printf("%s (primeiros elementos se N > 10): ", prefix);
     int limit = size < 10 ? size : 10;
@@ -20,7 +20,7 @@ void copia_array(int dest[], int src[], int size) {
     memcpy(dest, src, size * sizeof(int));
 }
 
-// --- Implementação do Quicksort (Lomuto) ---
+// --- Implementacao do Quicksort (Lomuto) ---
 void troca_lomuto(int* a, int* b) {
     int temp = *a;
     *a = *b;
@@ -60,7 +60,7 @@ void quickSort_lomuto(int arr[], int low, int high, int pivot_mode) {
     }
 }
 
-// --- Implementação do Quicksort (Hoare) ---
+// --- Implementacao do Quicksort (Hoare) ---
 void troca_hoare(int* a, int* b) {
     int temp = *a;
     *a = *b;
@@ -114,7 +114,7 @@ void quickSort_hoare(int arr[], int first, int last_exclusive, int pivot_mode) {
     }
 }
 
-// --- Funções para Gerar Arrays de Teste ---
+// --- Funcoes para Gerar Arrays de Teste ---
 void gerar_array_ordenado(int arr[], int n) {
     for (int i = 0; i < n; i++) arr[i] = i;
 }
@@ -132,7 +132,7 @@ int main() {
     setlocale(LC_ALL, "Portuguese");
     srand(time(NULL));
 
-    int N = 1000000; // Tamanho dos arrays de teste (aumentado para melhor visualização do tempo)
+    int N = 1000000; // Tamanho dos arrays de teste (aumentado para melhor visualizaï¿½ï¿½o do tempo)
 
     int* original = malloc(N * sizeof(int));
     int* copia_teste = malloc(N * sizeof(int));
@@ -145,14 +145,14 @@ int main() {
     }
 
     printf("Comparando Quicksort (Lomuto vs Hoare) com N = %d\n", N);
-    printf("Usando Pivô no Meio (modo 3) como padrão para os primeiros testes.\n");
+    printf("Usando Pivï¿½ no Meio (modo 3) como padrï¿½o para os primeiros testes.\n");
     printf("------------------------------------------------------------------\n");
 
     clock_t inicio_tempo, fim_tempo;
     double tempo_decorrido;
     int pivot_mode_default = 3;
 
-    // --- Cenários de Teste ---
+    // --- Cenï¿½rios de Teste ---
     // 1. Array Ordenado
     gerar_array_ordenado(original, N);
     printArrayInfo("Original Ordenado", original, N);
@@ -162,14 +162,14 @@ int main() {
     quickSort_lomuto(copia_teste, 0, N - 1, pivot_mode_default);
     fim_tempo = clock();
     tempo_decorrido = ((double)(fim_tempo - inicio_tempo)) / CLOCKS_PER_SEC;
-    printf("Lomuto (Ordenado, Pivô Meio): Tempo: %f segundos\n", tempo_decorrido);
+    printf("Lomuto (Ordenado, Pivï¿½ Meio): Tempo: %f segundos\n", tempo_decorrido);
 
     copia_array(copia_teste, original, N);
     inicio_tempo = clock();
     quickSort_hoare(copia_teste, 0, N, pivot_mode_default);
     fim_tempo = clock();
     tempo_decorrido = ((double)(fim_tempo - inicio_tempo)) / CLOCKS_PER_SEC;
-    printf("Hoare  (Ordenado, Pivô Meio): Tempo: %f segundos\n", tempo_decorrido);
+    printf("Hoare  (Ordenado, Pivï¿½ Meio): Tempo: %f segundos\n", tempo_decorrido);
     printf("------------------------------------------------------------------\n");
 
     // 2. Array Ordenado Reverso
@@ -181,17 +181,17 @@ int main() {
     quickSort_lomuto(copia_teste, 0, N - 1, pivot_mode_default);
     fim_tempo = clock();
     tempo_decorrido = ((double)(fim_tempo - inicio_tempo)) / CLOCKS_PER_SEC;
-    printf("Lomuto (Reverso, Pivô Meio): Tempo: %f segundos\n", tempo_decorrido);
+    printf("Lomuto (Reverso, Pivï¿½ Meio): Tempo: %f segundos\n", tempo_decorrido);
 
     copia_array(copia_teste, original, N);
     inicio_tempo = clock();
     quickSort_hoare(copia_teste, 0, N, pivot_mode_default);
     fim_tempo = clock();
     tempo_decorrido = ((double)(fim_tempo - inicio_tempo)) / CLOCKS_PER_SEC;
-    printf("Hoare  (Reverso, Pivô Meio): Tempo: %f segundos\n", tempo_decorrido);
+    printf("Hoare  (Reverso, Pivï¿½ Meio): Tempo: %f segundos\n", tempo_decorrido);
     printf("------------------------------------------------------------------\n");
 
-    // 3. Array Aleatório
+    // 3. Array Aleatï¿½rio
     gerar_array_aleatorio(original, N);
     printArrayInfo("Original Aleatorio", original, N);
 
@@ -200,14 +200,14 @@ int main() {
     quickSort_lomuto(copia_teste, 0, N - 1, pivot_mode_default);
     fim_tempo = clock();
     tempo_decorrido = ((double)(fim_tempo - inicio_tempo)) / CLOCKS_PER_SEC;
-    printf("Lomuto (Aleatorio, Pivô Meio): Tempo: %f segundos\n", tempo_decorrido);
+    printf("Lomuto (Aleatorio, Pivï¿½ Meio): Tempo: %f segundos\n", tempo_decorrido);
 
     copia_array(copia_teste, original, N);
     inicio_tempo = clock();
     quickSort_hoare(copia_teste, 0, N, pivot_mode_default);
     fim_tempo = clock();
     tempo_decorrido = ((double)(fim_tempo - inicio_tempo)) / CLOCKS_PER_SEC;
-    printf("Hoare  (Aleatorio, Pivô Meio): Tempo: %f segundos\n", tempo_decorrido);
+    printf("Hoare  (Aleatorio, Pivï¿½ Meio): Tempo: %f segundos\n", tempo_decorrido);
     printf("------------------------------------------------------------------\n");
 
     // 4. Array com Elementos Iguais
@@ -219,18 +219,18 @@ int main() {
     quickSort_lomuto(copia_teste, 0, N - 1, pivot_mode_default);
     fim_tempo = clock();
     tempo_decorrido = ((double)(fim_tempo - inicio_tempo)) / CLOCKS_PER_SEC;
-    printf("Lomuto (Iguais, Pivô Meio): Tempo: %f segundos\n", tempo_decorrido);
+    printf("Lomuto (Iguais, Pivï¿½ Meio): Tempo: %f segundos\n", tempo_decorrido);
 
     copia_array(copia_teste, original, N);
     inicio_tempo = clock();
     quickSort_hoare(copia_teste, 0, N, pivot_mode_default);
     fim_tempo = clock();
     tempo_decorrido = ((double)(fim_tempo - inicio_tempo)) / CLOCKS_PER_SEC;
-    printf("Hoare  (Iguais, Pivô Meio): Tempo: %f segundos\n", tempo_decorrido);
+    printf("Hoare  (Iguais, Pivï¿½ Meio): Tempo: %f segundos\n", tempo_decorrido);
     printf("------------------------------------------------------------------\n");
 
-    // Teste Adicional: Pior caso para pivô no início (Array Ordenado)
-    printf("Testando Pior Caso com Pivô no Início (modo 1):\n");
+    // Teste Adicional: Pior caso para pivï¿½ no inï¿½cio (Array Ordenado)
+    printf("Testando Pior Caso com Pivï¿½ no Inï¿½cio (modo 1):\n");
     gerar_array_ordenado(original, N);
     printArrayInfo("Original Ordenado", original, N);
 
@@ -239,14 +239,14 @@ int main() {
     quickSort_lomuto(copia_teste, 0, N - 1, 1);
     fim_tempo = clock();
     tempo_decorrido = ((double)(fim_tempo - inicio_tempo)) / CLOCKS_PER_SEC;
-    printf("Lomuto (Ordenado, Pivô Inicio): Tempo: %f segundos\n", tempo_decorrido);
+    printf("Lomuto (Ordenado, Pivï¿½ Inicio): Tempo: %f segundos\n", tempo_decorrido);
 
     copia_array(copia_teste, original, N);
     inicio_tempo = clock();
     quickSort_hoare(copia_teste, 0, N, 1);
     fim_tempo = clock();
     tempo_decorrido = ((double)(fim_tempo - inicio_tempo)) / CLOCKS_PER_SEC;
-    printf("Hoare  (Ordenado, Pivô Inicio): Tempo: %f segundos\n", tempo_decorrido);
+    printf("Hoare  (Ordenado, Pivï¿½ Inicio): Tempo: %f segundos\n", tempo_decorrido);
     printf("------------------------------------------------------------------\n");
 
     free(original);

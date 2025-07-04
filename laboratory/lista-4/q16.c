@@ -23,7 +23,7 @@ void limpar_buffer()
         ;
 }
 
-// Função para criar um novo soldado (CREATE)
+// Funcao para criar um novo soldado (CREATE)
 struct Soldado create_s()
 {
     struct Soldado novo_s;
@@ -32,7 +32,7 @@ struct Soldado create_s()
     printf("Nome do Soldado (max %d caracteres): ", MAX_NOME - 1);
     if (fgets(novo_s.nome, MAX_NOME, stdin) == NULL)
     {
-        fprintf(stderr, "Erro ao ler o nome. Saindo da criação.\n");
+        fprintf(stderr, "Erro ao ler o nome. Saindo da criacao.\n");
         strcpy(novo_s.nome, "INDEFINIDO");
         novo_s.eliminacoes = 0;
         novo_s.mortes = 0;
@@ -88,7 +88,7 @@ void view_s(struct Soldado s)
     printf("-------------------------------\n");
 }
 
-// Função para atualizar um soldado existente (UPDATE)
+// Funcao para atualizar um soldado existente (UPDATE)
 struct Soldado update_s(struct Soldado s_atual)
 {
     struct Soldado s_aux = s_atual;
@@ -140,13 +140,13 @@ struct Soldado update_s(struct Soldado s_atual)
     return s_aux;
 }
 
-// Função para gravar os dados de um soldado no arquivo binário
+// Funcao para gravar os dados de um soldado no arquivo binario
 void write_s(struct Soldado s, const char *nome_arquivo)
 {
     FILE *arquivo = fopen(nome_arquivo, "wb");
     if (arquivo == NULL)
     {
-        perror("Erro ao abrir arquivo para gravação");
+        perror("Erro ao abrir arquivo para gravacao");
         return;
     }
     if (fwrite(&s, sizeof(struct Soldado), 1, arquivo) != 1)
@@ -202,11 +202,11 @@ int main()
         printf("[E] Exibir Soldado\n");
         printf("[S] Sair\n");
         printf("--------------------\n");
-        printf("Opção: ");
+        printf("Opcao: ");
 
         if (scanf(" %c", &opc) != 1)
         {
-            fprintf(stderr, "Erro ao ler a opção.\n");
+            fprintf(stderr, "Erro ao ler a opcao.\n");
             limpar_buffer();
             opc = ' ';
             continue;
@@ -224,7 +224,7 @@ int main()
         case 'A':
             if (!soldado_existe)
             {
-                printf("Nenhum soldado carregado para atualizar. Crie um novo primeiro (Opção N).\n");
+                printf("Nenhum soldado carregado para atualizar. Crie um novo primeiro (Opcao N).\n");
             }
             else
             {
@@ -235,7 +235,7 @@ int main()
         case 'E':
             if (!soldado_existe)
             {
-                printf("Nenhum soldado carregado para exibir. Crie um novo primeiro (Opção N).\n");
+                printf("Nenhum soldado carregado para exibir. Crie um novo primeiro (Opcao N).\n");
             }
             else
             {
@@ -245,7 +245,7 @@ int main()
         case 'S':
             break; // sai do programa
         default:
-            printf("Opção inválida.\n");
+            printf("Opcao invalida.\n");
         }
     } while (opc != 'S');
 

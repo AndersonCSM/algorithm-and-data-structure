@@ -36,7 +36,7 @@ int main()
 
     int indice_element = busca_binaria(vet, n, element);
 
-    printf("O elemento %d está no indice %d\n", element, indice_element);
+    printf("O elemento %d esta no indice %d\n", element, indice_element);
 
     return 0;
 }

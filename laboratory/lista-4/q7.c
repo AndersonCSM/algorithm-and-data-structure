@@ -6,7 +6,7 @@
 
 #define TAMANHO_MAX_PALAVRA 100
 
-// Mantendo o nome da sua função
+// Mantendo o nome da sua funcao
 int check_palindromo(const char *word)
 {
     if (word == NULL)
@@ -23,12 +23,12 @@ int check_palindromo(const char *word)
 
         if (char_i != char_f)
         {
-            return 0; // Não é palíndromo
+            return 0; // Nao e palindromo
         }
         ini++;
         fim--;
     }
-    return 1; // É palíndromo
+    return 1; // E palindromo
 }
 
 int main()
@@ -39,7 +39,7 @@ int main()
     char nome_arquivo[100] = "texto3.txt";
     char palavra[TAMANHO_MAX_PALAVRA]; // Buffer para ler cada palavra
 
-    // Array dinâmico para armazenar as palavras palíndromo encontradas
+    // Array dinamico para armazenar as palavras palindromo encontradas
     char (*lista_palindromos)[TAMANHO_MAX_PALAVRA] = NULL;
     int capacidade_lista = 0; // Capacidade atual do array lista_palindromos
 
@@ -51,24 +51,24 @@ int main()
         return 1;
     }
 
-    // Lê palavras do arquivo uma por uma
+    // Le palavras do arquivo uma por uma
     while (fscanf(arq, "%99s", palavra) == 1)
     {
         if (check_palindromo(palavra))
         {
             qtd++;
 
-            // Realoca o array lista_palindromos se necessário
+            // Realoca o array lista_palindromos se necessï¿½rio
             if (qtd > capacidade_lista)
             {
                 int n = (capacidade_lista == 0) ? 10 : capacidade_lista * 2;
 
-                // Ajusta o tipo do ponteiro temporário e o sizeof para realloc
+                // Ajusta o tipo do ponteiro temporï¿½rio e o sizeof para realloc
                 char (*temp)[TAMANHO_MAX_PALAVRA] = realloc(lista_palindromos, n * sizeof(char[TAMANHO_MAX_PALAVRA]));
 
                 if (temp == NULL)
                 {
-                    perror("Erro ao realocar memória para lista de palíndromos");
+                    perror("Erro ao realocar memï¿½ria para lista de palï¿½ndromos");
                     free(lista_palindromos); // Libera o bloco anterior, se houver
                     fclose(arq);
                     return 1;
@@ -77,7 +77,7 @@ int main()
                 capacidade_lista = n;
             }
 
-            // Copia a palavra palíndromo para a lista
+            // Copia a palavra palï¿½ndromo para a lista
             strcpy(lista_palindromos[qtd - 1], palavra);
         }
     }
@@ -86,13 +86,13 @@ int main()
     printf("Arquivo: %s\n", nome_arquivo);
     if (qtd > 0)
     {
-        printf("Palíndromos encontrados:\n");
+        printf("Palï¿½ndromos encontrados:\n");
         for (int i = 0; i < qtd; i++)
         {
             printf("- %s\n", lista_palindromos[i]);
         }
     }
-    printf("Foram encontrados %d palíndromos neste arquivo.\n", qtd);
+    printf("Foram encontrados %d palï¿½ndromos neste arquivo.\n", qtd);
 
     free(lista_palindromos);
 

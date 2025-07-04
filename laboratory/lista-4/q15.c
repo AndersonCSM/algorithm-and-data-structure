@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <locale.h>
 
-// Função para obter o tamanho de um arquivo em bytes
+// Funcao para obter o tamanho de um arquivo em bytes
 long size_file(const char *filename)
 {
-    FILE *f = fopen(filename, "rb"); // Abrir em modo binário para obter o tamanho corretamente
+    FILE *f = fopen(filename, "rb"); // Abrir em modo binï¿½rio para obter o tamanho corretamente
     if (f == NULL)
     {
         perror("Erro ao abrir arquivo para obter tamanho");
@@ -13,7 +13,7 @@ long size_file(const char *filename)
         return -1;
     }
     fseek(f, 0, SEEK_END);   // Vai para o final do arquivo
-    long tamanho = ftell(f); // Pega a posição atual (tamanho)
+    long tamanho = ftell(f); // Pega a posiï¿½ï¿½o atual (tamanho)
     fclose(f);
     return tamanho;
 }
@@ -40,7 +40,7 @@ int main()
     arq_binario = fopen(arquivo_binario_nome, "wb");
     if (arq_binario == NULL)
     {
-        perror("Erro ao criar/abrir o arquivo binário para escrita");
+        perror("Erro ao criar/abrir o arquivo binï¿½rio para escrita");
         fclose(arq_texto);
         return 1;
     }
@@ -48,7 +48,7 @@ int main()
     for (i = 1; i <= 100; i++)
     {
         if (fprintf(arq_texto, "%d\n", i) < 0)
-        { // se for bem sucedido, o num tot de caracteres sempre será maior que 0 e não entrará no if
+        { // se for bem sucedido, o num tot de caracteres sempre serï¿½ maior que 0 e nï¿½o entrarï¿½ no if
             fprintf(stderr, "Erro ao escrever no arquivo texto.\n");
             fclose(arq_texto);
             fclose(arq_binario);
@@ -57,15 +57,15 @@ int main()
 
         n_bin = i; // Atribui o valor de i
         if (fwrite(&n_bin, sizeof(int), 1, arq_binario) != 1)
-        { // se for bem sucedido retornará 1 e não entrará no if
-            fprintf(stderr, "Erro ao escrever no arquivo binário.\n");
+        { // se for bem sucedido retornarï¿½ 1 e nï¿½o entrarï¿½ no if
+            fprintf(stderr, "Erro ao escrever no arquivo binï¿½rio.\n");
             fclose(arq_texto);
             fclose(arq_binario);
             return 1;
         }
     }
 
-    printf("Gravação concluída.\n\n");
+    printf("Gravaï¿½ï¿½o concluï¿½da.\n\n");
 
     fclose(arq_texto);
     fclose(arq_binario);
@@ -75,7 +75,7 @@ int main()
     long tamanho_binario = size_file(arquivo_binario_nome);
 
     printf("Tamanho do arquivo texto: %ld bytes\n", tamanho_texto);
-    printf("Tamanho do arquivo binário: %ld bytes\n", tamanho_binario);
+    printf("Tamanho do arquivo binï¿½rio: %ld bytes\n", tamanho_binario);
 
     return 0;
 }

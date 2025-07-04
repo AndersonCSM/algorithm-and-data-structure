@@ -43,7 +43,7 @@ int main()
             strcpy(situacao, "Reprovado"); // copiar string
         }
 
-        // Escreve os dados lidos e a situação calculada no arquivo de SAÍDA
+        // Escreve os dados lidos e a situacao calculada no arquivo de SAIDA
         fprintf(arq_out, "%-20s %-15s\n", nome, situacao);
     }
 
