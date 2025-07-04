@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 // Funcao para trocar dois elementos
-void troca(int* a, int* b) {
+void swap(int* a, int* b) {
     int temp = *a;
     *a = *b;
     *b = temp;
@@ -24,7 +24,7 @@ int partition(int arr[], int low, int high, int pivot_mode) {
     }
 
     // Move o pivo escolhido para o final do subarray (posicao high) | estrategia de Lomuto
-    troca(&arr[pivot_idx], &arr[high]);
+    swap(&arr[pivot_idx], &arr[high]);
     int pivot_value = arr[high]; // O valor do pivo agora esta em arr[high]
     int i = (low - 1); // Indice do menor elemento [Comeca em -1 para que o primeiro elemento seja colocado corretamente]
 
@@ -32,11 +32,11 @@ int partition(int arr[], int low, int high, int pivot_mode) {
         // Se o elemento atual e menor ou igual ao pivo
         if (arr[j] <= pivot_value) {
             i++; // Incrementa o indice do menor elemento
-            troca(&arr[i], &arr[j]);
+            swap(&arr[i], &arr[j]);
         }
     }
     // Coloca o pivo (que esta em arr[high]) em sua posicao final correta
-    troca(&arr[i + 1], &arr[high]);
+    swap(&arr[i + 1], &arr[high]);
     return (i + 1); // Retorna o indice da posicao final do pivo
 }
 

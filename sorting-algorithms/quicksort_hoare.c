@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 // Funcao para trocar dois elementos
-void troca(int* a, int* b) {
+void swap(int* a, int* b) {
     int temp = *a;
     *a = *b;
     *b = temp;
@@ -52,7 +52,7 @@ int partition_hoare(int arr[], int first, int last, int* i_ptr, int pivot_mode) 
 
         // Se i e j nao se cruzaram (ou i ultrapassou j)
         if (i <= j) {
-            troca(&arr[i], &arr[j]);
+            swap(&arr[i], &arr[j]);
             i++;
             j--;
         }
