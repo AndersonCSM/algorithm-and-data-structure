@@ -7,7 +7,7 @@ void swap(int *a, int *b)
     *b = temp;
 }
 
-void bubleesort(int *vet, int n)
+void bubblesort(int *vet, int n)
 {
     for (int i = 0; i < n; i++)
     {
@@ -15,7 +15,7 @@ void bubleesort(int *vet, int n)
         {
             if (vet[j] > vet[j + 1])
             {
-                swap(vet[j], vet[j + 1]);
+                swap(&vet[j], &vet[j + 1]);
             }
         }
     }

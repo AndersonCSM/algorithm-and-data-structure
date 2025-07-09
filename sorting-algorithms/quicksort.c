@@ -35,7 +35,7 @@ void quickSort(int *vetor, int inicio, int fim)
             // aux = vetor[i];
             // vetor[i] = vetor[j];
             // vetor[j] = aux;
-            swap(vetor[i], vetor[j]);
+            swap(&vetor[i], &vetor[j]);
             // move os ponteiros i e j para continuar a busca
             i++;
             j--;
