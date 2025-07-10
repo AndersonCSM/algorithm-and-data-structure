@@ -20,7 +20,7 @@ void swap_char(char *a, char *b)
     *b = temp;
 }
 
-void bubbleSortSort(int *vet, int n)
+void bubbleSort(int *vet, int n)
 {
     for (int i = 0; i < n; i++)
     {
@@ -36,7 +36,7 @@ void bubbleSortSort(int *vet, int n)
 
 void insertionSort(int *vet, int n)
 {
-    if (n > 1)
+    if (n <= 1)
     {
         return;
     }
@@ -123,7 +123,7 @@ void mergeSort(int *vet, int inicio, int fim)
 void quickSort(int *vetor, int inicio, int fim)
 {
     // abordagem de hoare
-    int i, j, pivo, aux;
+    int i, j, pivo;
     i = inicio;                       // i e o primeiro indice do vetor
     j = fim - 1;                      // j e o ultimo indice do vetor
     pivo = vetor[(inicio + fim) / 2]; // pivo e o elemento do meio
@@ -165,7 +165,7 @@ void quickSort(int *vetor, int inicio, int fim)
 }
 
 // Char
-void bubbleSortSort_c(char *vet, int n)
+void bubbleSort_c(char *vet, int n)
 {
     for (int i = 0; i < n; i++)
     {
@@ -181,7 +181,7 @@ void bubbleSortSort_c(char *vet, int n)
 
 void insertionSort_c(char *vet, int n)
 {
-    if (n > 1)
+    if (n <= 1)
     {
         return;
     }
@@ -259,16 +259,18 @@ void mergeSort_c(char *vet, int inicio, int fim)
     if (inicio < fim)
     {
         int meio = inicio + (fim - inicio) / 2;
-        mergeSort(vet, inicio, meio);  // Ordena a metade esquerda
-        mergeSort(vet, meio + 1, fim); // Ordena a metade direita
-        merge(vet, inicio, meio, fim); // Mescla as duas metades ordenadas
+        mergeSort_c(vet, inicio, meio);  // Ordena a metade esquerda
+        mergeSort_c(vet, meio + 1, fim); // Ordena a metade direita
+        merge_c(vet, 
+            inicio, meio, fim); // Mescla as duas metades ordenadas
     }
 }
 
 void quickSort_c(char *vetor, int inicio, int fim)
 {
     // abordagem de hoare
-    int i, j, pivo, aux;
+    int i, j;
+    char pivo;
     i = inicio;                       // i e o primeiro indice do vetor
     j = fim - 1;                      // j e o ultimo indice do vetor
     pivo = vetor[(inicio + fim) / 2]; // pivo e o elemento do meio
@@ -301,11 +303,11 @@ void quickSort_c(char *vetor, int inicio, int fim)
     // j esta a esquerda de i.
     if (j > inicio)
     {
-        quickSort(vetor, inicio, j + 1);
+        quickSort_c(vetor, inicio, j + 1);
     }
     if (i < fim)
     {
-        quickSort(vetor, i, fim);
+        quickSort_c(vetor, i, fim);
     }
 }
 

@@ -8,7 +8,7 @@
 #include "../include/search-algorithms.h"
 #include "../include/sorting-algorithms.h"
 
-void gerar_array_aleatorio(int *arr, int n)
+void gerar_array_int(int *arr, int n)
 {
     for (int i = 0; i < n; i++)
         arr[i] = rand() % (n * 2);
@@ -30,7 +30,7 @@ void copiar_array_int(int *arr, int *arr2, int n)
     }
 }
 
-void copiar_array_char(char *arr, char *arr2, int n)
+void copiar_array_char(char *arr, const char *arr2, int n)
 {
     for (int i = 0; i < n; i++)
     {
@@ -98,18 +98,18 @@ void sorting_switch(int opc, int *ordenado, int size)
     }
     case 2:
     {
-        mergeSort(ordenado, 0, size);
+        mergeSort(ordenado, 0, size - 1);
         break;
     }
     case 3:
     {
-        quickSort(ordenado, 0, size);
+        quickSort(ordenado, 0, size - 1);
         break;
     }
     }
 }
 
-void sorting_switch_c(int opc, int *ordenado, int size)
+void sorting_switch_c(int opc, char *ordenado, int size)
 {
     switch (opc)
     {
@@ -125,13 +125,41 @@ void sorting_switch_c(int opc, int *ordenado, int size)
     }
     case 2:
     {
-        mergeSort_c(ordenado, 0, size);
+        mergeSort_c(ordenado, 0, size-1);
         break;
     }
     case 3:
     {
-        quickSort_c(ordenado, 0, size);
+        quickSort_c(ordenado, 0, size-1);
         break;
     }
     }
+}
+
+void print_array_int(FILE *stream, const char *label, int *arr, int size)
+{
+    fprintf(stream, "%s[", label);
+    for (int i = 0; i < size; i++)
+    {
+        fprintf(stream, "%d", arr[i]);
+        if (i < size - 1)
+        {
+            fprintf(stream, ", ");
+        }
+    }
+    fprintf(stream, "]\n");
+}
+
+void print_array_char(FILE *stream, const char *label, const char *arr, int size)
+{
+    fprintf(stream, "%s[", label);
+    for (int i = 0; i < size; i++)
+    {
+        fprintf(stream, "%c", arr[i]);
+        if (i < size - 1)
+        {
+            fprintf(stream, ", ");
+        }
+    }
+    fprintf(stream, "]\n");
 }

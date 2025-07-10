@@ -14,10 +14,7 @@ void q1()
 
     const char *metodos[] = {"BubbleSort", "InsertionSort", "MergeSort", "QuickSort"};
 
-    int *original = NULL;
-    int *ordenado = NULL;
-
-    int N[3] = {1000, 100000, 1000000};
+    int N[3] = {1000, 100000, 100000};
 
     FILE *arq = fopen("data/q1.txt", "w");
     if (arq == NULL)
@@ -35,7 +32,7 @@ void q1()
         int *original = malloc(size * sizeof(int));
         int *ordenado = malloc(size * sizeof(int));
 
-        gerar_array_aleatorio(original, size);
+        gerar_array_int(original, size);
 
         if (original == NULL || ordenado == NULL)
         {
@@ -46,13 +43,13 @@ void q1()
         }
 
         fprintf(arq, "Tamanho do Array: %d\n", size);
-        fprintf(arq, "+-----------------+------------+\n");
-        fprintf(arq, "| Metodo          | Tempo (s)  |\n");
-        fprintf(arq, "+-----------------+------------+\n");
+        fprintf(arq, "+-----------------+-----------------------+\n");
+        fprintf(arq, "| Metodo          | Tempo (s)             |\n");
+        fprintf(arq, "+-----------------+-----------------------+\n");
 
         for (int met_opc = 0; met_opc < 4; met_opc++)
         {
-            copiar_array(ordenado, original, size);
+            copiar_array_int(ordenado, original, size);
 
             clock_t inicio_tempo = 0, fim_tempo = 0;
             double tempo_decorrido = 0;
@@ -63,10 +60,13 @@ void q1()
 
             tempo_decorrido = ((double)(fim_tempo - inicio_tempo)) / CLOCKS_PER_SEC;
 
-            fprintf(arq, "| %-15s | %-10.4f |\n", metodos[met_opc], tempo_decorrido);
+            fprintf(arq, "| %-15s | %-21.18f |\n", metodos[met_opc], tempo_decorrido);
         }
-        fprintf(arq, "+-----------------+------------+\n\n");
 
+        print_array_int(arq, "Vetor original: ", original, 20);
+        print_array_int(arq, "Vetor ordenado: ", ordenado, 20);
+
+        fprintf(arq, "+-----------------+-----------------------+\n");
         free(original);
         free(ordenado);
     }
@@ -74,9 +74,9 @@ void q1()
     // char
     int size_char = 255;
     fprintf(arq, "Cenario: Array de %d caracteres\n", size_char);
-    fprintf(arq, "+-----------------+------------------+\n");
-    fprintf(arq, "| Metodo          | Tempo (s)        |\n");
-    fprintf(arq, "+-----------------+------------------+\n");
+    fprintf(arq, "+-----------------+-----------------------+\n");
+    fprintf(arq, "| Metodo          | Tempo (s)             |\n");
+    fprintf(arq, "+-----------------+-----------------------+\n");
 
     char *original_char = (char *)malloc(size_char * sizeof(char));
     char *ordenado_char = (char *)malloc(size_char * sizeof(char));
@@ -92,14 +92,18 @@ void q1()
         clock_t fim = clock();
 
         double tempo = ((double)(fim - inicio)) / CLOCKS_PER_SEC;
-        fprintf(arq, "| %-15s | %-16.6f |\n", metodos[met_opc], tempo);
+        fprintf(arq, "| %-15s | %-21.18f |\n", metodos[met_opc], tempo);
     }
-    fprintf(arq, "+-----------------+------------------+\n\n");
+
+    print_array_char(arq, "Vetor char original: ", original_char, 20);
+    print_array_char(arq, "Vetor char ordenado: ", ordenado_char, 20);
+
+    fprintf(arq, "+-----------------+-----------------------+\n");
     free(original_char);
     free(ordenado_char);
 
     fclose(arq);
-    printf("Questao 1 - Done");
+    printf("Questao 1 - Done\n");
 }
 
 void q2()
@@ -123,35 +127,41 @@ void q2()
         int size = N[size_opc];
 
         fprintf(arq, "Cenario: Array de %d inteiros\n", size);
-        fprintf(arq, "+-----------------+------------------+\n");
-        fprintf(arq, "| Metodo          | Tempo (s)        |\n");
-        fprintf(arq, "+-----------------+------------------+\n");
+        fprintf(arq, "+-----------------+-----------------------+\n");
+        fprintf(arq, "| Metodo          | Tempo (s)             |\n");
+        fprintf(arq, "+-----------------+-----------------------+\n");
 
         int *numeros = (int *)malloc(size * sizeof(int));
 
-        gerar_array_int_aleatorio(numeros, size);
+        gerar_array_int(numeros, size);
         int elemento_busca = numeros[rand() % size];
 
         // Busca Linear
         clock_t inicio_l = clock();
-        busca_linear(numeros, size, elemento_busca);
+        for (int i = 0; i < 50000; i++)
+        {
+            busca_linear(numeros, size, elemento_busca);
+        }
         clock_t fim_l = clock();
 
         double tempo_l = ((double)(fim_l - inicio_l)) / CLOCKS_PER_SEC;
 
-        fprintf(arq, "| %-15s | %-16.6f |\n", metodos[0], tempo_l);
+        fprintf(arq, "| %-15s | %-21.18f |\n", metodos[0], tempo_l);
 
         // Busca Binária (precisa ordenar primeiro)
         quickSort(numeros, 0, size - 1);
 
         clock_t inicio_b = clock();
-        busca_binaria(numeros, size, elemento_busca);
+        for (int i = 0; i < 50000; i++)
+        {
+            busca_binaria(numeros, size, elemento_busca);
+        }
         clock_t fim_b = clock();
 
         double tempo_b = ((double)(fim_b - inicio_b)) / CLOCKS_PER_SEC;
 
-        fprintf(arq, "| %-15s | %-16.6f |\n", metodos[1], tempo_b);
-        fprintf(arq, "+-----------------+------------------+\n\n");
+        fprintf(arq, "| %-15s | %-21.18f |\n", metodos[1], tempo_b);
+        fprintf(arq, "+-----------------+-----------------------+\n");
 
         free(numeros);
     }
@@ -179,31 +189,37 @@ void q2()
     const char *palavra_busca = palavras[rand() % num_palavras];
 
     fprintf(arq, "Cenario: Buscando a palavra '%s' em um texto com %d palavras\n", palavra_busca, num_palavras);
-    fprintf(arq, "+-----------------+------------------+\n");
-    fprintf(arq, "| Metodo          | Tempo (s)        |\n");
-    fprintf(arq, "+-----------------+------------------+\n");
+    fprintf(arq, "+-----------------+-----------------------+\n");
+    fprintf(arq, "| Metodo          | Tempo (s)             |\n");
+    fprintf(arq, "+-----------------+-----------------------+\n");
 
     // Busca Linear de String
     clock_t inicio_ls = clock();
-    busca_linear_string(palavras, num_palavras, palavra_busca);
+    for (int i = 0; i < 50000; i++)
+    {
+        busca_linear_string(palavras, num_palavras, palavra_busca);
+    }
     clock_t fim_ls = clock();
 
     double tempo_ls = ((double)(fim_ls - inicio_ls)) / CLOCKS_PER_SEC;
 
-    fprintf(arq, "| %-15s | %-16.6f |\n", metodos[0], tempo_ls);
+    fprintf(arq, "| %-15s | %-21.18f |\n", metodos[0], tempo_ls);
 
     // Busca Binária de String (precisa ordenar primeiro)
     quickSortStrings(palavras, 0, num_palavras - 1);
 
     clock_t inicio_bs = clock();
-    busca_binaria_string(palavras, num_palavras, palavra_busca);
+    for (int i = 0; i < 50000; i++)
+    {
+        busca_binaria_string(palavras, num_palavras, palavra_busca);
+    }
     clock_t fim_bs = clock();
 
     double tempo_bs = ((double)(fim_bs - inicio_bs)) / CLOCKS_PER_SEC;
 
-    fprintf(arq, "| %-15s | %-16.6f |\n", metodos[1], tempo_bs);
+    fprintf(arq, "| %-15s | %-21.18f |\n", metodos[1], tempo_bs);
 
-    fprintf(arq, "+-----------------+------------------+\n\n");
+    fprintf(arq, "+-----------------+-----------------------+\n");
 
     free_word(palavras, num_palavras);
     free(palavras);
@@ -215,9 +231,61 @@ void q2()
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
-    q1();
-    q2();
-    printf("Concluido.\n");
+    int test = 2;
+    if (test == 1)
+    {
+        q1();
+        printf("Concluido.\n");
+    }
+    else if (test == 2)
+    {
+        q2();
+        printf("Concluido.\n");
+    }
+    else
+    {
+        int size = 500000;
+
+        int *original = malloc(size * sizeof(int));
+        int *ordenado = malloc(size * sizeof(int));
+
+        gerar_array_int(original, size);
+
+        if (original == NULL || ordenado == NULL)
+        {
+            printf("Falha ao alocar memoria.\n");
+            free(original);
+            free(ordenado);
+            return 0;
+        }
+
+        printf("Tamanho do Array: %d\n", size);
+        printf("+-----------------+-----------------------+\n");
+        printf("| Metodo          | Tempo (s)             |\n");
+        printf("+-----------------+-----------------------+\n");
+
+        copiar_array_int(ordenado, original, size);
+
+        clock_t inicio_tempo = 0, fim_tempo = 0;
+        double tempo_decorrido = 0;
+
+        inicio_tempo = clock();
+        // quickSort(ordenado, 0, size - 1);
+        mergeSort(ordenado, 0, size - 1);
+        fim_tempo = clock();
+
+        tempo_decorrido = ((double)(fim_tempo - inicio_tempo)) / CLOCKS_PER_SEC;
+
+        printf("| %-15s | %-21.18f |\n", "quicksort", tempo_decorrido);
+
+        for (int i = 0; i < 200; i++)
+        {
+            printf("%d, ", ordenado[i]);
+        }
+
+        free(original);
+        free(ordenado);
+    }
 
     return 0;
 }
