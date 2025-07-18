@@ -18,31 +18,31 @@ Dnode *dlist_create_dnode(int valor)
 void dlist_insert_init(Dnode **cabeca, int valor)
 {
     Dnode *novo = dlist_create_dnode(valor);
-    if (!*cabeca)
+    if (!*cabeca) // Se não existir
     {
         *cabeca = novo;
         return;
     }
-    novo->proximo = *cabeca;
-    (*cabeca)->anterior = novo;
-    *cabeca = novo;
+    novo->proximo = *cabeca; // a antiga cabeça será movida, sendo o valor de proximo da nova cabeça (novo)
+    (*cabeca)->anterior = novo;  // o valor anterior da antiga cabeça é o novo
+    *cabeca = novo; // a cabeça passa a ser o novo elemento inserido
 }
 
 void dlist_insert_end(Dnode **cabeca, int valor)
 {
     Dnode *novo = dlist_create_dnode(valor);
-    if (!*cabeca)
+    if (!*cabeca) // se não existir
     {
         *cabeca = novo;
         return;
     }
     Dnode *atual = *cabeca;
-    while (atual->proximo)
+    while (atual->proximo) // enquanto tiver elementos na sequencia, atualize o atual
     {
         atual = atual->proximo;
     }
-    atual->proximo = novo;
-    novo->anterior = atual;
+    atual->proximo = novo; // o ultimo elemento(atual), terá o valor proximo atualizado, apontado para novo
+    novo->anterior = atual; // e novo, passa a ter como elemento anterior o antigo ultimo elemento(atual)
 }
 
 void dlist_remove_dnode(Dnode **cabeca, int chave)
@@ -59,9 +59,10 @@ void dlist_remove_dnode(Dnode **cabeca, int chave)
     if (!atual)
         return; // Não encontrou
 
-    if (atual->anterior)
+    if (atual->anterior) 
     {
-        atual->anterior->proximo = atual->proximo;
+        atual->anterior->proximo = atual->proximo; // como atual será removido, o elemento anterior a atual precisa ser acessado e ter seu valor atualizado
+        // anterior->proximo = atual->proximo
     }
     else
     { // É o primeiro nó
@@ -70,7 +71,8 @@ void dlist_remove_dnode(Dnode **cabeca, int chave)
 
     if (atual->proximo)
     {
-        atual->proximo->anterior = atual->anterior;
+        atual->proximo->anterior = atual->anterior; // da mesma forma, o elemento próximo precisa ter o seu ponteiro anterior atualizado
+        // proximo->anterior = atual->anterior
     }
 
     free(atual);

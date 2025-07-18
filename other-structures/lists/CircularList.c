@@ -20,7 +20,7 @@ void clist_insert_init(CNode **cabeca, int valor)
     if (!novo)
         return;
 
-    if (!*cabeca)
+    if (!*cabeca) // se não existir head, o novo será a head
     {
         novo->proximo = novo;
         *cabeca = novo;
@@ -32,9 +32,9 @@ void clist_insert_init(CNode **cabeca, int valor)
         {
             atual = atual->proximo;
         }
-        novo->proximo = *cabeca;
-        atual->proximo = novo;
-        *cabeca = novo;
+        novo->proximo = *cabeca; // a antiga head será o valor em sequencia a nova head (novo)
+        atual->proximo = novo; // como é circular o ultimo elemento chamado de atual, deve aponta para a nova head (novo)
+        *cabeca = novo; // novo passa a ser nova head
     }
 }
 
@@ -44,7 +44,7 @@ void clist_insert_end(CNode **cabeca, int valor)
     if (!novo)
         return;
 
-    if (!*cabeca)
+    if (!*cabeca) // se estiver vazia
     {
         novo->proximo = novo;
         *cabeca = novo;
@@ -52,12 +52,12 @@ void clist_insert_end(CNode **cabeca, int valor)
     else
     {
         CNode *atual = *cabeca;
-        while (atual->proximo != *cabeca)
+        while (atual->proximo != *cabeca) // busca o ultimo elemento que não seja a head
         {
             atual = atual->proximo;
         }
-        atual->proximo = novo;
-        novo->proximo = *cabeca;
+        atual->proximo = novo; // o antigo ultimo elemento (atual) agora aponta para o novo ultimo elemento (novo)
+        novo->proximo = *cabeca; // o ultimo elemento (novo) aponta para a head para fechar a lista circular
     }
 }
 
@@ -69,38 +69,38 @@ void clist_pop_node(CNode **cabeca, int chave)
     CNode *temp = *cabeca;
     CNode *anterior = NULL;
 
-    do
+    do // busca o nó que se deseja remover
     {
         if (temp->dado == chave)
             break;
-        anterior = temp;
-        temp = temp->proximo;
+        anterior = temp; // salva o no anterior ao que deseja remover
+        temp = temp->proximo; // atualiza temp como o endereço proximo a ser modificado
     } while (temp != *cabeca);
 
     if (temp->dado != chave)
         return;
 
-    if (temp->proximo == temp)
+    if (temp->proximo == temp) // se for o unico no na lista
     {
         free(temp);
-        *cabeca = NULL;
+        *cabeca = NULL; // lista vazia
         return;
     }
 
-    if (temp == *cabeca)
+    if (temp == *cabeca) // se quisermos remover a head da lista
     {
         CNode *ultimo = *cabeca;
-        while (ultimo->proximo != *cabeca)
+        while (ultimo->proximo != *cabeca) // busca o ultimo elemento
         {
             ultimo = ultimo->proximo;
         }
-        *cabeca = temp->proximo;
-        ultimo->proximo = *cabeca;
+        *cabeca = temp->proximo; // a head da lista passa a ser o valor proximo armazenado em temp (que é a proria head)
+        ultimo->proximo = *cabeca; // atualiza o valor do proximo do ultimo elemento para apontar para a head
         free(temp);
     }
-    else
+    else // remover um no no meio ou fim da lista
     {
-        anterior->proximo = temp->proximo;
+        anterior->proximo = temp->proximo; // atualiza o nó anterior (proximo) para que aponte corretamente para o novo nó temp(proximo)
         free(temp);
     }
 }
