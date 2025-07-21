@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "Queue.h"
 
@@ -13,14 +14,15 @@ int queue_is_empty(Queue *queue)
     return queue->front == NULL;
 }
 
-void queue_enqueue(Queue *queue, int value)
+void queue_enqueue(Queue *queue, char *value)
 {
     QNode *newNode = (QNode *)malloc(sizeof(QNode));
     if (!newNode)
         return;
 
-    newNode->data = value; // novo valor do nó
-    newNode->next = NULL;  // como ele é o último da fila, ele aponta para NULL
+    strncpy(newNode->data, value, 100); // novo valor do nó
+
+    newNode->next = NULL; // como ele é o último da fila, ele aponta para NULL
 
     if (queue->tail == NULL) // fila vazia
     {
@@ -34,26 +36,32 @@ void queue_enqueue(Queue *queue, int value)
     }
 }
 
-int queue_dequeue(Queue *queue)
+char *queue_dequeue(Queue *queue)
 {
     if (queue_is_empty(queue))
-        return -1;
+        return NULL;
 
+    // 'static' significa que esta variável não é destruída quando a função termina
+    static char dequeuedValue[101];
     QNode *temp = queue->front;
-    int dequeuedValue = temp->data;
-    queue->front = temp->next; // o novo primeiro da fila é o próximo de temp
+
+    // Copia o dado do nó para o buffer ANTES de liberar o nó.
+    strncpy(dequeuedValue, temp->data, 101);
+
+    queue->front = temp->next;
     if (queue->front == NULL) // fila vazia
     {
         queue->tail = NULL;
     }
     free(temp);
+
     return dequeuedValue;
 }
 
-int queue_front(Queue *queue)
+char *queue_front(Queue *queue)
 {
     if (queue_is_empty(queue))
-        return -1;
+        return NULL;
     return queue->front->data;
 }
 
@@ -68,7 +76,7 @@ void queue_display(Queue *queue)
     printf("Fila: ");
     while (temp)
     {
-        printf("%d ", temp->data);
+        printf("'%s' ", temp->data);
         temp = temp->next;
     }
     printf("\n");

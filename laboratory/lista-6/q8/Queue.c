@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "Queue.h"
 
@@ -13,14 +14,17 @@ int queue_is_empty(Queue *queue)
     return queue->front == NULL;
 }
 
-void queue_enqueue(Queue *queue, int value)
+void queue_enqueue(Queue *queue, const char *nome, int tempo)
 {
     QNode *newNode = (QNode *)malloc(sizeof(QNode));
     if (!newNode)
         return;
 
-    newNode->data = value; // novo valor do nó
-    newNode->next = NULL;  // como ele é o último da fila, ele aponta para NULL
+    strncpy(newNode->data.nome, nome, 100); // novo valor do nó
+    newNode->data.nome[100] = '\0';
+    newNode->data.resting_time = tempo;
+
+    newNode->next = NULL; // como ele é o último da fila, ele aponta para NULL
 
     if (queue->tail == NULL) // fila vazia
     {
@@ -34,27 +38,32 @@ void queue_enqueue(Queue *queue, int value)
     }
 }
 
-int queue_dequeue(Queue *queue)
+Processo queue_dequeue(Queue *queue)
 {
     if (queue_is_empty(queue))
-        return -1;
+    {
+        Processo processo_vazio = {"", 0};
+        return processo_vazio;
+    }
 
     QNode *temp = queue->front;
-    int dequeuedValue = temp->data;
-    queue->front = temp->next; // o novo primeiro da fila é o próximo de temp
+    Processo proc_remove = temp->data;
+
+    queue->front = temp->next;
     if (queue->front == NULL) // fila vazia
     {
         queue->tail = NULL;
     }
     free(temp);
-    return dequeuedValue;
+
+    return proc_remove;
 }
 
-int queue_front(Queue *queue)
+char *queue_front(Queue *queue)
 {
     if (queue_is_empty(queue))
-        return -1;
-    return queue->front->data;
+        return NULL;
+    return queue->front->data.nome;
 }
 
 void queue_display(Queue *queue)
@@ -68,7 +77,7 @@ void queue_display(Queue *queue)
     printf("Fila: ");
     while (temp)
     {
-        printf("%d ", temp->data);
+        printf("['%s' (t=%d)] ", temp->data.nome, temp->data.resting_time);
         temp = temp->next;
     }
     printf("\n");

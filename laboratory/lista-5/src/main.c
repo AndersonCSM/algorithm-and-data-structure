@@ -209,6 +209,7 @@ void q2()
     quickSortStrings(palavras, 0, num_palavras - 1);
 
     clock_t inicio_bs = clock();
+    
     for (int i = 0; i < 50000; i++)
     {
         busca_binaria_string(palavras, num_palavras, palavra_busca);
