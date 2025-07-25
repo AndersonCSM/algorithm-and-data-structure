@@ -4,7 +4,7 @@
 
 #include "Queue.h"
 
-void test(Processo *processos, int tot_processos, int timer)
+void round_robin(Processo *processos, int tot_processos, int timer)
 {
     Queue fila_prontos;
     queue_init(&fila_prontos);
@@ -25,7 +25,7 @@ void test(Processo *processos, int tot_processos, int timer)
         {
             printf("[Tempo %d] Chegada: Processo %d (Execucao: %ds)\n",
                    tempo_atual,
-                   processos[processo_next_indice].id, 
+                   processos[processo_next_indice].id,
                    processos[processo_next_indice].tempo_execucao_total);
 
             queue_enqueue(&fila_prontos, processos[processo_next_indice]);
@@ -94,7 +94,7 @@ int main()
     int tot_processos = sizeof(processos) / sizeof(Processo);
     int timer = 3;
 
-    test(processos, tot_processos, timer);
+    round_robin(processos, tot_processos, timer);
 
     return 0;
 }
