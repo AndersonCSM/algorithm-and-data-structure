@@ -173,9 +173,10 @@ Node *removeNode(Node *root, int x)
 
         root->right = removeNode(root->right, succ->data); // remove o sucessor de maneira recursiva
     }
+    return root;
 }
 
-void *freeTree(Node *root)
+void freeTree(Node *root)
 { // libera a árvore da memória usando percurso em pos-ordem
     if (root == NULL)
     {
@@ -185,4 +186,16 @@ void *freeTree(Node *root)
     freeTree(root->left);
     freeTree(root->right);
     free(root);
+}
+
+Node *createTree(int data[], int size)
+{
+    Node *root = NULL;
+
+    for (int i = 0; i < size; i++)
+    {
+        root = insertNode(root, data[i]);
+    }
+
+    return root;
 }
