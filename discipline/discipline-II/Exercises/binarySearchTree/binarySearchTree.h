@@ -24,4 +24,11 @@ Node *getAntecessor(Node *node);
 void freeTree(Node *root);
 
 Node *createTree(int data[], int size);
+
+int getSize(Node *root);
+int getHeight(Node *root);
+float getMedian(Node *root);
+Node *removeMin(Node *tree);
+Node *changeKey(Node *root, int oldVal, int newVal);
+
 #endif

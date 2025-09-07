@@ -54,6 +54,10 @@ q01: dirs $(BIN_DIR)/q01.exe
 # Compila apenas q02 (adicione quando criar)
 q02: dirs $(BIN_DIR)/q02.exe
 
+q03: dirs $(BIN_DIR)/q03.exe
+
+q04: dirs $(BIN_DIR)/q04.exe
+
 # Executa q01
 run-q01: dirs $(BIN_DIR)/q01.exe 
 	@echo Executando q01...
@@ -63,6 +67,15 @@ run-q01: dirs $(BIN_DIR)/q01.exe
 run-q02: dirs $(BIN_DIR)/q02.exe
 	@echo Executando q02...
 	@$(BIN_DIR)/q02.exe
+
+# Executa q03
+run-q03: dirs $(BIN_DIR)/q03.exe
+	@echo Executando q03...
+	@$(BIN_DIR)/q03.exe
+
+run-q04: dirs $(BIN_DIR)/q04.exe
+	@echo Executando q04...
+	@$(BIN_DIR)/q04.exe
 
 # ==================== REGRAS DE LIMPEZA ====================
 

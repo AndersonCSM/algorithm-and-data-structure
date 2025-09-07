@@ -199,3 +199,111 @@ Node *createTree(int data[], int size)
 
     return root;
 }
+
+int getSize(Node *root)
+{
+    if (root != NULL)
+    {
+        int leftCount = getSize(root->left);
+        int rightCount = getSize(root->right);
+
+        return 1 + leftCount + rightCount; // o no atual mais os da sub-arvores
+    }
+
+    return 0;
+}
+
+int getHeight(Node *root)
+{
+    if (root == NULL)
+    {
+        return -1; // Convenção para árvore vazia
+    }
+    else
+    {
+        int leftHeight = getHeight(root->left);
+        int rightHeight = getHeight(root->right);
+
+        // Retorna 1 + a altura da maior sub-árvore
+        if (leftHeight > rightHeight)
+        {
+            return 1 + leftHeight;
+        }
+        else
+        {
+            return 1 + rightHeight;
+        }
+    }
+}
+
+void ToArray(Node *root, int arr[], int *index)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    ToArray(root->left, arr, index);
+    arr[*index] = root->data;
+    (*index)++; // Desreferencia e incrementa o índice para a próxima posição
+    ToArray(root->right, arr, index);
+}
+
+float getMedian(Node *root)
+{
+    if (root == NULL)
+    {
+        return 0.0; // árvore vazia
+    }
+
+    int size = getSize(root);
+    if (size == 0)
+    {
+        return 0.0;
+    }
+
+    // memoria para vetor auxiliar
+    int *sortedArray = (int *)malloc(size * sizeof(int));
+    if (sortedArray == NULL)
+    {
+        printf("Erro de alocacao de memoria!\n");
+        return -1.0; // Indica erro
+    }
+
+    int index = 0;
+    ToArray(root, sortedArray, &index);
+
+    float median;
+    if (size % 2 != 0) // Se for ímpar, a mediana é o elemento do meio
+    {
+
+        median = (float)sortedArray[size / 2];
+    }
+    else
+    { // Se for par, a mediana é a média dos dois elementos centrais
+
+        int mid1 = sortedArray[(size / 2) - 1];
+        int mid2 = sortedArray[size / 2];
+        median = (float)(mid1 + mid2) / 2.0; // cast para float
+    }
+
+    free(sortedArray); // Libera a memória alocada
+    return median;
+}
+
+Node *removeMin(Node *tree)
+{
+    Node *min = getMin(tree);
+
+    return removeNode(tree, min->data);
+}
+
+Node *changeKey(Node *root, int oldVal, int newVal)
+{ // é basicamente remover o antigo valor e adicionar o novo
+    // nao é uma mudança propriamente dito
+
+    root = removeNode(root, oldVal);
+    root = insertNode(root, newVal);
+
+    return root;
+}
