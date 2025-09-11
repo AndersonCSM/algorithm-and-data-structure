@@ -58,6 +58,14 @@ q03: dirs $(BIN_DIR)/q03.exe
 
 q04: dirs $(BIN_DIR)/q04.exe
 
+q05: dirs $(BIN_DIR)/q05.exe
+
+q06: dirs $(BIN_DIR)/q06.exe
+
+q08: dirs $(BIN_DIR)/q08.exe
+
+q09: dirs $(BIN_DIR)/q09.exe
+
 # Executa q01
 run-q01: dirs $(BIN_DIR)/q01.exe 
 	@echo Executando q01...
@@ -76,6 +84,22 @@ run-q03: dirs $(BIN_DIR)/q03.exe
 run-q04: dirs $(BIN_DIR)/q04.exe
 	@echo Executando q04...
 	@$(BIN_DIR)/q04.exe
+
+run-q05: dirs $(BIN_DIR)/q05.exe
+	@echo Executando q05...
+	@$(BIN_DIR)/q05.exe
+
+run-q06: dirs $(BIN_DIR)/q06.exe
+	@echo Executando q06...
+	@$(BIN_DIR)/q06.exe
+
+run-q08: dirs $(BIN_DIR)/q08.exe
+	@echo Executando q08...
+	@$(BIN_DIR)/q08.exe
+
+run-q09: dirs $(BIN_DIR)/q09.exe
+	@echo Executando q09...
+	@$(BIN_DIR)/q09.exe
 
 # ==================== REGRAS DE LIMPEZA ====================
 

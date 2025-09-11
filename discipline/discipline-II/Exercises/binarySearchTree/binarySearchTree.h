@@ -1,6 +1,23 @@
 #ifndef BINARYSEARCHTREE_H
 #define BINARYSEARCHTREE_H
 
+enum method
+{
+    RECURR,
+    ITER,
+};
+
+typedef enum method Method;
+
+enum order
+{
+    PRE,
+    IN,
+    POS,
+};
+
+typedef enum order Order;
+
 typedef struct node
 {
     int data;
@@ -23,12 +40,19 @@ Node *getSucessor(Node *node);
 Node *getAntecessor(Node *node);
 void freeTree(Node *root);
 
-Node *createTree(int data[], int size);
+Node *createTree(int data[], int size, Method method);
 
 int getSize(Node *root);
 int getHeight(Node *root);
 float getMedian(Node *root);
 Node *removeMin(Node *tree);
 Node *changeKey(Node *root, int oldVal, int newVal);
+
+int isBST(Node *node);
+void insertIterative(Node **root_ptr, int data);
+Node *searchNodeIterative(Node *root, int key);
+
+void printNode(Node *node);
+void traverse(Node *node, Order ord, void (*visit)(Node *node));
 
 #endif

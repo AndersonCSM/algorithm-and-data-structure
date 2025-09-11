@@ -16,7 +16,7 @@ int main()
 
     //Node *treeList[5];
 
-    Node *tree = createTree(list1, 7);
+    Node *tree = createTree(list1, 7, NULL);
 
     Node *min = getMin(tree);
     Node *minSuc = getSucessor(min);

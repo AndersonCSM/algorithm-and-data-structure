@@ -7,10 +7,10 @@ int main()
 {
     int list1[] = {10, 5, 3, 7, 15, 12, 18};
 
-    Node *tree = createTree(list1, 7);
+    Node *tree = createTree(list1, 7, NULL);
 
     printf("Arvore original: ");
-    order(tree); 
+    order(tree);
 
     printf("\nAlterando a chave 15 para 17\n");
     tree = changeKey(tree, 15, 17);
